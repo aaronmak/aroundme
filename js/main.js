@@ -121,6 +121,9 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     layers.appendChild(link);
 }
 
-map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+}), 'top-left');
+// map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-map.addControl(new mapboxgl.GeolocateControl(), 'bottom-left');
+// map.addControl(new mapboxgl.GeolocateControl(), 'bottom-left');
