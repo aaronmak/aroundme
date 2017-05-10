@@ -21,8 +21,8 @@ map.on('load', function () {
         'paint': {
             'circle-radius': 2,
             'circle-color': 'rgba(55,148,179,1)'
-        }
-        // 'source-layer': 'kindergartens-6ypz8q'
+        },
+        'source-layer': 'kindergartens-6ypz8q'
     });
 
     // map.addLayer({
@@ -94,5 +94,5 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
     layers.appendChild(link);
 }
 
-map.addControl(new mapboxgl.FullscreenControl());
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
