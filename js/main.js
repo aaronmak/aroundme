@@ -126,4 +126,4 @@ map.addControl(new MapboxGeocoder({
 }), 'top-left');
 // map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
-// map.addControl(new mapboxgl.GeolocateControl(), 'bottom-left');
+map.addControl(new mapboxgl.GeolocateControl(), 'bottom-left');
