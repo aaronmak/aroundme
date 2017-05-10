@@ -280,3 +280,11 @@ textarea {
         page-break-after: avoid;
     }
 }
+/*** map styles ***/
+ #map {
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:80%;
+    margin-left: 10%;
+}

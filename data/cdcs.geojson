@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::4757" } },
+"features": [
+{ "type": "Feature", "properties": { "OBJECTID": 1, "ADDRESSPOS": "529684", "ADDRESS": "51 Tampines Ave 4, #04-31, Singapore 529684", "DESCRIPTIO": "Community Development Councils", "HYPERLINK": "https:\/\/www.cdc.org.sg\/Contact-Us\/Getting-to-a-CDC", "NAME": "North East CDC", "X_ADDR": 39914.8498, "Y_ADDR": 37294.1728 }, "geometry": { "type": "Point", "coordinates": [ 103.940381106923738, 1.353547395784241 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 2, "ADDRESSPOS": "310490", "ADDRESS": "490 Lorong 6 Toa Payoh, #07-11, Singapore 310490", "DESCRIPTIO": "Community Development Councils", "HYPERLINK": "https:\/\/www.cdc.org.sg\/Contact-Us\/Getting-to-a-CDC", "NAME": "Central Singapore CDC", "X_ADDR": 29639.7434, "Y_ADDR": 34974.5352 }, "geometry": { "type": "Point", "coordinates": [ 103.848052603496996, 1.332571751163212 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 3, "ADDRESSPOS": "730900", "ADDRESS": "900 South Woodlands Drive, #06-1, Singapore 730900", "DESCRIPTIO": "Community Development Councils", "HYPERLINK": "https:\/\/www.cdc.org.sg\/Contact-Us\/Getting-to-a-CDC", "NAME": "North West CDC", "X_ADDR": 22803.1142, "Y_ADDR": 46309.1923 }, "geometry": { "type": "Point", "coordinates": [ 103.786619615680337, 1.435077893976053 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 4, "ADDRESSPOS": "408600", "ADDRESS": "10 Eunos Road 8, #012-1, Singapore 408600", "DESCRIPTIO": "Community Development Councils", "HYPERLINK": "https:\/\/www.cdc.org.sg\/Contact-Us\/Getting-to-a-CDC", "NAME": "South East CDC", "X_ADDR": 34788.9018, "Y_ADDR": 33461.8105 }, "geometry": { "type": "Point", "coordinates": [ 103.894320363683548, 1.318890496575349 ] } },
+{ "type": "Feature", "properties": { "OBJECTID": 5, "ADDRESSPOS": "609434", "ADDRESS": "8 Jurong Town Hall Road, #026-6, Singapore 609434", "DESCRIPTIO": "Community Development Councils", "HYPERLINK": "https:\/\/www.cdc.org.sg\/Contact-Us\/Getting-to-a-CDC", "NAME": "South West CDC", "X_ADDR": 17801.9682, "Y_ADDR": 34841.1146 }, "geometry": { "type": "Point", "coordinates": [ 103.741683568697482, 1.331363471746684 ] } }
+]
+}
