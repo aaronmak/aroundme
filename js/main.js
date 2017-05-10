@@ -25,11 +25,52 @@ function addAllLayers(dataArr, namesArr) {
 	          'circle-radius': 3,
 	          'circle-color': colorbrewer[i]
 	      },
+	      'layout': {
+            'visibility': 'none'
+        },
 	      "source": {
 	          "type": "geojson",
 	          "data": dataArr[i]
 	      }
 	  });
+	}
+}
+
+function addPopup(layerId) {
+
+  map.on('click', layerId, function(e) {
+  	var popupContent = '';
+  	if (e.features[0].properties.HYPERLINK) {
+  		if (e.features[0].properties.HYPERLINK !== 'null') {
+	  		popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+							+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+							+"<a href='"+e.features[0].properties.HYPERLINK+"'>"+e.features[0].properties.HYPERLINK+'</a>';
+			} else {
+				popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+						+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+			}
+  	} else {
+  		popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+						+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+  	}
+		new mapboxgl.Popup()
+		  .setLngLat(e.features[0].geometry.coordinates)
+		  .setHTML(popupContent)
+		  .addTo(map);
+	});
+
+  map.on('mouseenter', layerId, function() {
+      map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', layerId, function () {
+        map.getCanvas().style.cursor = '';
+    });
+}
+
+function addPopupList(layerIdArr) {
+	for (i=0; i<layerIdArr.length; i++) {
+		addPopup(layerIdArr[i]);
 	}
 }
 
@@ -42,69 +83,12 @@ var map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
-// map.on('load', function () {
-//     map.addSource('kindergartens', {
-//         type: 'vector',
-//         url: 'mapbox://aaronmak.2sty0d0t'
-//     });
-//     map.addLayer({
-//         'id': 'kindergartens',
-//         'type': 'circle',
-//         'source': 'kindergartens',
-//         'layout': {
-//             'visibility': 'visible'
-//         },
-//         'paint': {
-//             'circle-radius': 3,
-//             'circle-color': 'rgba(55,148,179,1)'
-//         },
-//         'source-layer': 'kindergartens-6ypz8q'
-//     });
-
-//     map.addLayer({
-//         "id": "terrain-data",
-//         "type": "line",
-//         "source": {
-//             type: 'vector',
-//             url: 'mapbox://mapbox.mapbox-terrain-v2'
-//         },
-//         "source-layer": "contour",
-//         "layout": {
-//             "line-join": "round",
-//             "line-cap": "round"
-//         },
-//         "paint": {
-//             "line-color": "#ff69b4",
-//             "line-width": 1
-//         }
-//     });
-
-//     map.addSource('contours', {
-//         type: 'vector',
-//         url: 'mapbox://mapbox.mapbox-terrain-v2'
-//     });
-//     map.addLayer({
-//         'id': 'contours',
-//         'type': 'line',
-//         'source': 'contours',
-//         'source-layer': 'contour',
-//         'layout': {
-//             'visibility': 'visible',
-//             'line-join': 'round',
-//             'line-cap': 'round'
-//         },
-//         'paint': {
-//             'line-color': '#877b59',
-//             'line-width': 1
-//         }
-//     });
-// });
-
 var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, disabilityServices, eldercareServices, familyServices, kindergartens, preSchools, vwos]
 var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Disability Services', 'Eldercare Services', 'Family Services', 'Kindergartens','Pre Schools', 'VWOs']
 
 map.on('load', function () {
 	addAllLayers(dataArr, namesArr);
+  addPopupList(namesArr);
 });
 
 var toggleableLayerIds = namesArr;
@@ -114,8 +98,8 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
     var link = document.createElement('a');
     link.href = '#';
-    link.className = 'active';
     link.textContent = (id);
+    link.style.borderLeft = '10px solid ' + colorbrewer[i];
 
     link.onclick = function (e) {
         var clickedLayer = this.textContent;
@@ -139,3 +123,4 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
 
 map.addControl(new mapboxgl.FullscreenControl(), 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+map.addControl(new mapboxgl.GeolocateControl(), 'bottom-left');
