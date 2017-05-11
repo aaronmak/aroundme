@@ -294,10 +294,18 @@ textarea {
     z-index: 1;
     top: 10px;
     right: 10px;
-    border-radius: 3px;
+    border-radius: 4px;
+    overflow: hidden;
+    overflow-y: scroll;
     width: 120px;
-/*        border: 1px solid rgba(0,0,0,0.4);*/
     font-family: 'Open Sans', sans-serif;
+    max-height: 90%;
+    -ms-overflow-style: none;  // IE 10+
+    overflow: -moz-scrollbars-none;  // Firefox
+}
+
+#menu::-webkit-scrollbar {
+    display: none;  // Safari and Chrome
 }
 
 #menu a {

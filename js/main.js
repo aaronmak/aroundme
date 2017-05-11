@@ -128,8 +128,8 @@ map.addControl(geocoder, 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 map.addControl(currentLoc, 'bottom-left');
 
-var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, socialServiceOffices, disabilityServices, eldercareServices, familyServices, studentCareServices, kindergartens, preSchools, vwos]
-var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Services', 'Student Care Services', 'Kindergartens','Pre Schools', 'VWOs']
+var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, socialServiceOffices, disabilityServices, eldercareServices, familyServices, studentCareServices, kindergartens, vwos]
+var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Service Centers', 'Student Care Services', 'Kindergartens', 'VWOs']
 
 map.on('load', function () {
 	addAllLayers(dataArr, namesArr);
