@@ -18,22 +18,51 @@ var colorbrewer = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','
 
 function addAllLayers(dataArr, namesArr) {
 	for (i=0; i < dataArr.length; i++) {
-		map.addLayer({
-	      "id": namesArr[i],
-	      "type": "circle",
-	      'paint': {
-	          'circle-radius': 5,
-	          'circle-color': colorbrewer[i]
-	      },
-	      'layout': {
-            'visibility': 'none'
-        },
-	      "source": {
-	          "type": "geojson",
-	          "data": dataArr[i]
-	      }
-	  });
+		addLayer(namesArr[i], colorbrewer[i], dataArr[i])
 	}
+}
+
+function addLayer(layerId, color, data) {
+	map.addLayer({
+      "id": layerId,
+      "type": "circle",
+      'paint': {
+          'circle-radius': 5,
+          'circle-color': color
+      },
+      'layout': {
+          'visibility': 'none'
+      },
+      "source": {
+          "type": "geojson",
+          "data": data
+      }
+  });
+
+  map.addLayer({
+	    "id": layerId + "-hover",
+	    "type": "circle",
+	    "source": {
+          "type": "geojson",
+          "data": data
+      },
+	    "layout": {},
+	    "paint": {
+	        "circle-color": "#F1F500"
+	    },
+	    "filter": ["==", "ADDRESS", ""]
+	});
+
+	// When the user moves their mouse over the states-fill layer, we'll update the filter in
+  // the state-fills-hover layer to only show the matching state, thus making a hover effect.
+  map.on("mousemove", layerId, function(e) {
+      map.setFilter(layerId + "-hover", ["==", "ADDRESS", e.features[0].properties.ADDRESS]);
+  });
+
+  // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
+  map.on("mouseleave", layerId, function() {
+      map.setFilter(layerId + "-hover", ["==", "ADDRESS", ""]);
+  });
 }
 
 function addPopup(layerId) {
