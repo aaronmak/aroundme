@@ -14,7 +14,7 @@ function setColor(element, color) {
     element.style.backgroundColor = color;
 };
 
-var colorbrewer = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a']
+var colorbrewer = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928']
 
 function addAllLayers(dataArr, namesArr) {
 	for (i=0; i < dataArr.length; i++) {
@@ -53,13 +53,13 @@ function addLayer(layerId, color, data) {
 	    "filter": ["==", "ADDRESS", ""]
 	});
 
-	// When the user moves their mouse over the states-fill layer, we'll update the filter in
-  // the state-fills-hover layer to only show the matching state, thus making a hover effect.
+	// When the user moves their mouse over the layerId layer, we'll update the filter in
+  // the layerId-hover layer to only show the matching state, thus making a hover effect.
   map.on("mousemove", layerId, function(e) {
       map.setFilter(layerId + "-hover", ["==", "ADDRESS", e.features[0].properties.ADDRESS]);
   });
 
-  // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
+  // Reset the layerId-hover layer's filter when the mouse leaves the layer.
   map.on("mouseleave", layerId, function() {
       map.setFilter(layerId + "-hover", ["==", "ADDRESS", ""]);
   });
@@ -106,10 +106,11 @@ function addPopupList(layerIdArr) {
 
 
 // Mapbox
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWFyb25tYWsiLCJhIjoiY2lqbW56MW41MDBhd3Q5a281cnczZzRxcCJ9.JJiANbdTxSUXpaUmQkXWDg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/dark-v9',
+    style: 'mapbox://styles/mapbox/light-v9',
     center: [103.84, 1.3147], // starting position
     zoom: 10 // starting zoom
 });
@@ -127,8 +128,8 @@ map.addControl(geocoder, 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 map.addControl(currentLoc, 'bottom-left');
 
-var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, disabilityServices, eldercareServices, familyServices, kindergartens, preSchools, vwos]
-var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Disability Services', 'Eldercare Services', 'Family Services', 'Kindergartens','Pre Schools', 'VWOs']
+var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, socialServiceOffices, disabilityServices, eldercareServices, familyServices, studentCareServices, kindergartens, preSchools, vwos]
+var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Services', 'Student Care Services', 'Kindergartens','Pre Schools', 'VWOs']
 
 map.on('load', function () {
 	addAllLayers(dataArr, namesArr);
@@ -185,7 +186,6 @@ map.on('load', function () {
     // makes a selection and add a symbol that matches the result.
     geocoder.on('result', function(ev) {
         map.getSource('buffer').setData(ev.result.geometry);
-        console.log(ev.result.geometry);
     });
 
     currentLoc.on('geolocate', function(ev) {
