@@ -14,12 +14,28 @@ function setColor(element, color) {
     element.style.backgroundColor = color;
 };
 
-var colorbrewer = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928']
+var colorbrewer = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928','#ffffff','#00C8BB']
 
 function addAllLayers(dataArr, namesArr) {
 	for (i=0; i < dataArr.length; i++) {
 		addLayer(namesArr[i], colorbrewer[i], dataArr[i])
 	}
+}
+
+function checkAndReturnData(data) {
+  if (data && data !== 'null') {
+    return '<p>' + data + '</p>';
+  } else {
+    return ''
+  }
+}
+
+function checkAndReturnLink(link) {
+  if (link && link !== 'null') {
+    return "<a href='" + link + "'>"+ link +"</a>"
+  } else {
+    return ''
+  }
 }
 
 function addLayer(layerId, color, data) {
@@ -56,32 +72,35 @@ function addLayer(layerId, color, data) {
 	// When the user moves their mouse over the layerId layer, we'll update the filter in
   // the layerId-hover layer to only show the matching state, thus making a hover effect.
   map.on("mousemove", layerId, function(e) {
-      map.setFilter(layerId + "-hover", ["==", "ADDRESS", e.features[0].properties.ADDRESS]);
+      map.setFilter(layerId + "-hover", ["==", "OBJECTID", e.features[0].properties.OBJECTID]);
   });
 
   // Reset the layerId-hover layer's filter when the mouse leaves the layer.
   map.on("mouseleave", layerId, function() {
-      map.setFilter(layerId + "-hover", ["==", "ADDRESS", ""]);
+      map.setFilter(layerId + "-hover", ["==", "OBJECTID", ""]);
   });
 }
 
 function addPopup(layerId) {
 
   map.on('click', layerId, function(e) {
-  	var popupContent = '';
-  	if (e.features[0].properties.HYPERLINK) {
-  		if (e.features[0].properties.HYPERLINK !== 'null') {
-	  		popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
-							+'<p>'+e.features[0].properties.ADDRESS+'</p>'
-							+"<a href='"+e.features[0].properties.HYPERLINK+"'>"+e.features[0].properties.HYPERLINK+'</a>';
-			} else {
-				popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
-						+'<p>'+e.features[0].properties.ADDRESS+'</p>'
-			}
-  	} else {
-  		popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
-						+'<p>'+e.features[0].properties.ADDRESS+'</p>'
-  	}
+  	var popupContent = checkAndReturnData(e.features[0].properties.BUS_STOP_N) +
+                       checkAndReturnData(e.features[0].properties.NAME) +
+                       checkAndReturnData(e.features[0].properties.ADDRESS) +
+                       checkAndReturnLink(e.features[0].properties.HYPERLINK);
+  	// if (e.features[0].properties.HYPERLINK) {
+  	// 	if (e.features[0].properties.HYPERLINK !== 'null') {
+	  // 		popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+			// 				+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+			// 				+"<a href='"+e.features[0].properties.HYPERLINK+"'>"+e.features[0].properties.HYPERLINK+'</a>';
+			// } else {
+			// 	popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+			// 			+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+			// }
+  	// } else {
+  	// 	popupContent = '<p>'+e.features[0].properties.NAME+'</p>'
+			// 			+'<p>'+e.features[0].properties.ADDRESS+'</p>'
+  	// }
 		new mapboxgl.Popup()
 		  .setLngLat(e.features[0].geometry.coordinates)
 		  .setHTML(popupContent)
@@ -102,8 +121,6 @@ function addPopupList(layerIdArr) {
 		addPopup(layerIdArr[i]);
 	}
 }
-
-
 
 // Mapbox
 
@@ -128,8 +145,8 @@ map.addControl(geocoder, 'top-left');
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 map.addControl(currentLoc, 'bottom-left');
 
-var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, socialServiceOffices, disabilityServices, eldercareServices, familyServices, studentCareServices, kindergartens, vwos]
-var namesArr = ['Community Development Centres', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Service Centers', 'Student Care Services', 'Kindergartens', 'Volunteer Welfare Organisations']
+var dataArr = [busStops, childCareServices, communityClubs, socialServiceOffices, disabilityServices, eldercareServices, familyServices, sportsFacilities, studentCareServices, trainStations, kindergartens, libraries, vwos, waterActivities]
+var namesArr = ['Bus Stops','Child Care Services', 'Community Clubs', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Service Centers', 'Sports Facilities', 'Student Care Services', 'Train Stations', 'Kindergartens', 'Public Libraries', 'Volunteer Welfare Organisations', 'Water Activities']
 
 map.on('load', function () {
 	addAllLayers(dataArr, namesArr);
