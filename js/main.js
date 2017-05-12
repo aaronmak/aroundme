@@ -110,7 +110,7 @@ function addPopupList(layerIdArr) {
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWFyb25tYWsiLCJhIjoiY2lqbW56MW41MDBhd3Q5a281cnczZzRxcCJ9.JJiANbdTxSUXpaUmQkXWDg';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/light-v9',
+    style: 'mapbox://styles/mapbox/dark-v9',
     center: [103.84, 1.3147], // starting position
     zoom: 10 // starting zoom
 });
@@ -129,7 +129,7 @@ map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 map.addControl(currentLoc, 'bottom-left');
 
 var dataArr = [cdcs, childCareServices, communityClubs, constituencyOffices, socialServiceOffices, disabilityServices, eldercareServices, familyServices, studentCareServices, kindergartens, vwos]
-var namesArr = ['CDCs', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Service Centers', 'Student Care Services', 'Kindergartens', 'VWOs']
+var namesArr = ['Community Development Centres', 'Child Care Services', 'Community Clubs', 'Constituency Offices', 'Social Service Offices', 'Disability Services', 'Eldercare Services', 'Family Service Centers', 'Student Care Services', 'Kindergartens', 'Volunteer Welfare Organisations']
 
 map.on('load', function () {
 	addAllLayers(dataArr, namesArr);

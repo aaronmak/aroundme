@@ -297,7 +297,7 @@ textarea {
     border-radius: 4px;
     overflow: hidden;
     overflow-y: scroll;
-    width: 120px;
+    width: 200px;
     font-family: 'Open Sans', sans-serif;
     max-height: 90%;
     -ms-overflow-style: none;  // IE 10+
@@ -341,6 +341,7 @@ textarea {
 
 .mapboxgl-popup-content {
     width: 200px;
+    overflow-x: hidden;
     overflow-wrap: break-word;
 }
 
